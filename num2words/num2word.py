@@ -61,8 +61,11 @@ def group3(num):
 
     while (int(groups[0]) == 0) and (len(groups) != 1):
         groups.pop(0)
+    while groups[0][0] == '0' and len(groups[0]) != 1:
+        groups[0] = groups[0][1:]
+
     if int(groups[0]) == 0:
-        groups = [0]
+        groups = ['0']
     return (groups)
 
 
@@ -78,7 +81,7 @@ def more_digit(num):
 
 	print(marked_num)
 
-	if (np == 1) and int(parts[0] == 0):
+	if (np == 1) and int(parts[0]) == 0:
 		return (zero(num))
 	names3 = [None, "Thousand", "Million", "Billion", "Trillion", "Quadrillion",
 			"Quintillion", "Sixtillion", "Septillion", "Octillion", "Nonillion", "Decillion"]
