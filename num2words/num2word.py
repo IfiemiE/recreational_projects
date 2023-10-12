@@ -31,10 +31,12 @@ def two_digit(num):
             return (one_digit(num))
         elif (9 < num) and (num <= 19):
             names1 = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen",
-                   "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+                      "Fifteen", "Sixteen", "Seventeen", "Eighteen",
+                      "Nineteen"]
             return (names1[num - 10])
         else:
-            names2 = ["Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+            names2 = ["Twenty", "Thirty", "Forty", "Fifty", "Sixty",
+                      "Seventy", "Eighty", "Ninety"]
             tens = num // 10
             unit = num % 10
             if (unit == 0):
@@ -57,7 +59,8 @@ def three_digit(num):
             if (tens_unit == 0):
                 return ("{} Hundred".format(one_digit(hun)))
             else:
-                return ("{} Hundred and {}".format(one_digit(hun), two_digit(tens_unit)))
+                return ("{} Hundred and {}".format(one_digit(hun),
+                        two_digit(tens_unit)))
 
 
 def group3(num):
@@ -102,14 +105,16 @@ def more_digit(num):
 
     if (np == 1) and int(parts[0]) == 0:
         return (zero(num))
-    names3 = [None, "Thousand", "Million", "Billion", "Trillion", "Quadrillion",
-    "Quintillion", "Sixtillion", "Septillion", "Octillion", "Nonillion", "Decillion"]
+    names3 = [None, "Thousand", "Million", "Billion", "Trillion",
+              "Quadrillion", "Quintillion", "Sixtillion", "Septillion",
+              "Octillion", "Nonillion", "Decillion"]
     words = ""
     for i in range(np):
         hun = three_digit(parts[i])
         j = (np - 1) - i
         if j > len(names3) - 1:
-            print(f"For No more than {3*len(names3)} digits: Increase the place value list")
+            print(f"For No more than {3*len(names3)} digits:
+                  Increase the place value list")
             return
         if (hun is not None):
             if (names3[j] is None):
