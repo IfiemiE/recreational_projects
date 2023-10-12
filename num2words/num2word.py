@@ -1,12 +1,18 @@
 #!/usr/bin/python3
+""" This module contains functions for naming numbers in words"""
+
 
 def zero(num):
+    """ A function for handling zero as a special case"""
+
     num = int(num)
     if num == 0:
         return ("Zero")
 
 
 def one_digit(num):
+    """ A function for naming single digit numbers apart from zero"""
+
     num = int(num)
     if (0 < num) and (num <= 9):
         names = ["One", "Two", "Three", "Four", "Five",
@@ -16,6 +22,9 @@ def one_digit(num):
 
 
 def two_digit(num):
+    """ A function for naming double digit numbers
+    Degenerates to one_digit function if number begins with a zero
+    """
     num = int(num)
     if (0 < num) and (num <= 99):
         if (num <= 9):
@@ -35,6 +44,9 @@ def two_digit(num):
 
 
 def three_digit(num):
+    """A function for naming three digit numbers
+    Degenerates to two_digit function if number begins with a zero
+    """
     num = int(num)
     if (0 < num) and (num <= 999):
         if (num <= 99):
@@ -49,6 +61,9 @@ def three_digit(num):
 
 
 def group3(num):
+    """A function for splitting digits into groups of threes
+    Removes all zero prefixes
+    """
     groups = []
     b = len(num)
     a = b - 3
@@ -70,44 +85,49 @@ def group3(num):
 
 
 def more_digit(num):
-	parts = group3(num)
-	np = len(parts)
-	marked_num = ""
-	for mn in range(np):
-		if mn != (np - 1):
-			marked_num += "{},".format(parts[mn])
-		else:
-			marked_num += parts[mn]
+    """ A function to name numbers with more than three digits
+    -Splits the number into groups of 3's
+    -Names each groups
+    -Degenerates to three_digit function for a group beginning with zero
+    """
+    parts = group3(num)
+    np = len(parts)
+    marked_num = ""
+    for mn in range(np):
+        if mn != (np - 1):
+            marked_num += "{},".format(parts[mn])
+        else:
+            marked_num += parts[mn]
+    print(marked_num)
 
-	print(marked_num)
-
-	if (np == 1) and int(parts[0]) == 0:
-		return (zero(num))
-	names3 = [None, "Thousand", "Million", "Billion", "Trillion", "Quadrillion",
-			"Quintillion", "Sixtillion", "Septillion", "Octillion", "Nonillion", "Decillion"]
-	words = ""
-	for i in range(np):
-		hun = three_digit(parts[i])
-		j = (np - 1) - i
-		if j > len(names3) - 1:
-			print(f"For No more than {3*len(names3)} digits: Increase the place value list")
-			return
-		if (hun is not None):
-			if (names3[j] is None):
-				words += hun
-			else:
-				for c in range(i + 1, np):
-					if (int(parts[c]) != 0):
-						words += "{} {}, ".format(hun, names3[j])
-						break
-				else:
-					words += "{} {}".format(hun, names3[j])
-	return (words)
+    if (np == 1) and int(parts[0]) == 0:
+        return (zero(num))
+    names3 = [None, "Thousand", "Million", "Billion", "Trillion", "Quadrillion",
+    "Quintillion", "Sixtillion", "Septillion", "Octillion", "Nonillion", "Decillion"]
+    words = ""
+    for i in range(np):
+        hun = three_digit(parts[i])
+        j = (np - 1) - i
+        if j > len(names3) - 1:
+            print(f"For No more than {3*len(names3)} digits: Increase the place value list")
+            return
+        if (hun is not None):
+            if (names3[j] is None):
+                words += hun
+            else:
+                for c in range(i + 1, np):
+                    if (int(parts[c]) != 0):
+                        words += "{} {}, ".format(hun, names3[j])
+                        break
+                else:
+                    words += "{} {}".format(hun, names3[j])
+    return (words)
 
 
-if __name__=='__main__':
-	import sys
-	for i in range(1, len(sys.argv)):
-		num = sys.argv[i]
-		word = more_digit(num)
-		print("{}".format(word))
+if __name__ == '__main__':
+    import sys
+    for i in range(1, len(sys.argv)):
+        num = sys.argv[i]
+        if num.isdigit():
+            word = more_digit(num)
+            print("{}".format(word))
