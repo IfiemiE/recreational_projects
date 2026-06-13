@@ -113,7 +113,7 @@ def more_digit(num):
         hun = three_digit(parts[i])
         j = (np - 1) - i
         if j > len(names3) - 1:
-            print(f"For No more than {3*len(names3)} digits:
+            print(f"For No more than {3*len(names3)} digits:\
                   Increase the place value list")
             return
         if (hun is not None):
